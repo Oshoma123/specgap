@@ -1,0 +1,54 @@
+{
+  "provenance": "MassBank-data release 2026.03, full corpus, parsed 2026-09-07 on Python 3.9 / Windows",
+  "n_records": 139240,
+  "n_by_source": {
+    "MassBank": 139240
+  },
+  "joinability": {
+    "n_joinable": 137264,
+    "pct_joinable": 98.58,
+    "note": "records without a well-formed InChIKey cannot be assessed for structural coverage; this is the ceiling on any coverage measurement over this library"
+  },
+  "distinct_compounds": {
+    "n_unique_inchikeys": 20335,
+    "n_unique_skeletons": 18026,
+    "spectra_per_unique_compound": 6.75,
+    "note": "libraries hold many spectra per compound (adducts, collision energies, instruments), so record count overstates compound coverage"
+  },
+  "nonstandard_inchikeys": 0,
+  "naming": {
+    "n_with_name": null,
+    "pct_with_name": null
+  },
+  "natural_products": {
+    "n_records_classed_np": 13159,
+    "pct_of_records": 9.45,
+    "n_unique_np_inchikeys": 2550,
+    "note": "MassBank CH$COMPOUND_CLASS only; 53% of records leave the field N/A, so this is a FLOOR not an estimate"
+  },
+  "licenses": {
+    "CC BY": 48404,
+    "CC BY-NC-SA": 33478,
+    "CC BY-SA": 21086,
+    "dl-de/by-2-0": 20658,
+    "CC BY-NC": 8434,
+    "CC0": 7031,
+    "CC BY-NC-ND": 149
+  },
+  "ion_modes": {
+    "positive": 97803,
+    "negative": 41437
+  },
+  "top_compound_classes": {
+    "N/A": 69656,
+    "Natural Product": 11788,
+    "Pharmaceutical": 8373,
+    "NA": 4675,
+    "Cyanobacterial metabolite": 3055,
+    "Industrial_process": 2906,
+    "Non-natural product": 2172,
+    "Herbicide": 1934,
+    "Natural product": 1334,
+    "Fungicide": 1050
+  }
+}

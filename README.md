@@ -16,18 +16,35 @@ Founded September 2026.
 Maintainer: Oshoma Erumiseli ([ORCID 0009-0004-3813-4650](https://orcid.org/0009-0004-3813-4650)).
 Code: [MIT](LICENSE) · Audit outputs: [CC BY 4.0](LICENSE-DATA).
 
-## Status: engine complete, full-corpus audit not yet run
+## Status: engine complete; first real library audited
 
 The engine is finished and tested (69 tests). It parses the sources' **native
-formats** — GNPS MGF, GNPS JSON, MoNA/GNPS MSP, MassBank records, COCONUT and
-LOTUS SDF — and the test fixtures reproduce field layouts taken from those
-projects' own published specifications.
+formats** — GNPS MGF, GNPS JSON, MoNA/GNPS MSP, MassBank records, and COCONUT
+and LOTUS SDF — with fixtures reproducing field layouts from those projects'
+own published specifications.
 
-What has **not** happened yet is a run against the full multi-million-record
-downloads. No corpus-wide coverage percentage is published here, and none
-should be quoted from this repository. `scripts/01_fetch.py` points at the
-real bulk endpoints; running it is the next step and requires only bandwidth
-and disk.
+**A full real run against MassBank release 2026.03 has been completed**:
+139,240 records parsed, 98.58% joinable, 20,335 distinct compounds. Findings
+and caveats in [`docs/MASSBANK_INVENTORY.md`](docs/MASSBANK_INVENTORY.md).
+
+Still outstanding: the **structure side**. Structural coverage is a two-sided
+measurement, and LOTUS/COCONUT have not yet been downloaded and run, so no
+coverage percentage is published here.
+
+## Selected findings
+
+**Record counts overstate chemical coverage ~7×.** MassBank's 139,240
+spectra represent 20,335 distinct compounds — 6.75 spectra per compound
+across adducts, collision energies and instruments.
+
+**MassBank is not uniformly CC BY.** Per record: 34.8% CC BY, but 30.2%
+carry a non-commercial restriction and 149 records are no-derivatives.
+Redistributing a derived dataset as "MassBank, CC BY" would misstate the
+terms for nearly a third of it.
+
+**Stereochemistry accounts for 11.4% of apparent distinct compounds** —
+20,335 InChIKeys collapse to 18,026 skeletons, making the exact-vs-skeleton
+matching choice consequential rather than cosmetic.
 
 ## First finding: the GNPS MGF export cannot be joined at all
 
@@ -80,9 +97,12 @@ src/specgap/          the library
   coverage.py         the matching engine
   report.py           statistics and the QA report
   parsers/            mgf, msp, gnps_json, massbank, sdf
-scripts/              01_fetch, 02_audit, 03_figures
+scripts/              01_fetch, 02_audit, 03_figures,
+                      04_inventory (single-library audit),
+                      05_inventory_figures
 tests/                69 tests; fixtures reproduce documented field layouts
-docs/                 FORMATS, BUILD_SPEC, CODEBOOK, LIMITATIONS, VERIFY_CHECKLIST
+docs/                 FORMATS, MASSBANK_INVENTORY (first real result),
+                      BUILD_SPEC, CODEBOOK, LIMITATIONS, VERIFY_CHECKLIST
 data/real_pilot/      5 hand-verified live COCONUT records
 ```
 
