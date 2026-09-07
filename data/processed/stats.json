@@ -1,0 +1,39 @@
+{
+  "status": "SYNTHETIC FIXTURE RUN \u2014 not real coverage data, see docs/BUILD_SPEC.md",
+  "structural_coverage": {
+    "n_structures": 60,
+    "matched_exact_inchikey": 36,
+    "matched_exact_pct": 60.0,
+    "matched_skeleton": 36,
+    "matched_skeleton_pct": 60.0,
+    "by_source_db": {
+      "LOTUS": {
+        "n": 30,
+        "matched_skeleton_pct": 60.0
+      },
+      "COCONUT": {
+        "n": 30,
+        "matched_skeleton_pct": 60.0
+      }
+    }
+  },
+  "name_recoverability": {
+    "n_spectral_entries": 53,
+    "recovered": 45,
+    "recovered_pct": 84.91,
+    "by_spectral_source": {
+      "MassBank": {
+        "n": 19,
+        "recovered_pct": 89.47
+      },
+      "MoNA": {
+        "n": 20,
+        "recovered_pct": 85.0
+      },
+      "GNPS": {
+        "n": 14,
+        "recovered_pct": 78.57
+      }
+    }
+  }
+}

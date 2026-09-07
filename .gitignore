@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+data/raw/*
+!data/raw/fixtures/
+!data/raw/PROVENANCE.txt
+*.DS_Store

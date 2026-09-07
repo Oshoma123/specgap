@@ -1,0 +1,24 @@
+SPECGAP QA report
+STATUS: SYNTHETIC FIXTURE RUN -- not real coverage data (see docs/BUILD_SPEC.md)
+
+Structures loaded: 60
+  LOTUS: 30 structures, 60.0% skeleton-matched
+  COCONUT: 30 structures, 60.0% skeleton-matched
+Exact-InChIKey structural coverage: 36/60 (60.0%)
+Skeleton-level structural coverage: 36/60 (60.0%)
+
+Spectral entries loaded: 53
+  MassBank: 19 entries, 89.47% name-recoverable
+  MoNA: 20 entries, 85.0% name-recoverable
+  GNPS: 14 entries, 78.57% name-recoverable
+Overall name-recoverability: 45/53 (84.91%)
+
+Named spot checks (verify these by hand against source data before trusting the run):
+  - Synthanol 47 (B6982DF5339685-62446EEB14-5, LOTUS): exact=True, skeleton=True, sources=MassBank;MoNA
+  - Synthanol 2 (52BBEFA2EE8B98-0FCCB2964F-7, COCONUT): exact=True, skeleton=True, sources=MassBank
+  - Synthanol 42 (E213885DF7AF9F-2202515C0F-2, COCONUT): exact=False, skeleton=False, sources=none
+  - Synthanol 59 (2AF9EA1644D9CD-259ED24C22-0, LOTUS): exact=False, skeleton=False, sources=none
+
+Sanity checks:
+  - no orphan rows: PASS
+  - coverage percentages in [0,100]: PASS

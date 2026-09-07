@@ -1,0 +1,2 @@
+date,artifact_or_event,type,venue_or_host,link_or_doi,status,prong_tags,metrics_snapshot,files_saved,notes
+YYYY-MM-DD,[Project name] v0.1.0 release,dataset,Zenodo + GitHub,10.5281/zenodo.NNNNNNN,live,"P2, P3",0 downloads at release,release_page.pdf; zenodo_record.pdf,First public release after verification checklist completed on YYYY-MM-DD
