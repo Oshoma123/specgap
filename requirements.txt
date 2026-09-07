@@ -1,0 +1,3 @@
+# The specgap package itself has no runtime dependencies beyond the standard
+# library. matplotlib is needed only for scripts/03_figures.py.
+matplotlib>=3.5

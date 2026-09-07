@@ -1,0 +1,31 @@
+[
+  {
+    "spectrum_id": "CCMSLIB00000579358",
+    "source_file": "Training_001.mgf",
+    "ms_level": "2",
+    "library_membership": "CASMI",
+    "peaks_json": "[[164.033997,32294.5],[179.057495,129907.1]]",
+    "Compound_Name": "Theophyllin",
+    "Ion_Source": "LC-ESI",
+    "Instrument": "Orbitrap",
+    "Adduct": "M-H",
+    "Precursor_MZ": "179.057",
+    "Smiles": "CN1C2=C(NC=N2)C(=O)N(C)C1=O",
+    "INCHI": "\"InChI=1S/C7H8N4O2/c1-10-5-4(8-3-9-5)6(12)11(2)7(10)13/h3H,1-2H3,(H,8,9)\"",
+    "INCHI_AUX": "N/A",
+    "Library_Class": "1",
+    "SpectrumID": "CCMSLIB00000579358",
+    "Ion_Mode": " Negative"
+  },
+  {
+    "spectrum_id": "CCMSLIB00000072100",
+    "ms_level": "2",
+    "peaks_json": "[[161.0,2.216415]]",
+    "Compound_Name": "Desferrioxamine B M+H",
+    "Smiles": "N/A",
+    "INCHI": "N/A",
+    "Library_Class": "3",
+    "SpectrumID": "CCMSLIB00000072100",
+    "Ion_Mode": "Positive"
+  }
+]

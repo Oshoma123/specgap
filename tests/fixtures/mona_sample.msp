@@ -1,0 +1,39 @@
+Name: Dehydrocostus lactone
+Synon: Epiligulyl oxide
+DB#: MoNA000001
+InChIKey: NETSQGRTUNRXEO-UHFFFAOYSA-N
+Precursor_type: [M+H]+
+Spectrum_type: MS2
+Ion_mode: P
+InChI: InChI=1S/C15H18O2
+SMILES: C=C1C(=O)OC2C1CCC(=C)C1CCC(=C)C12
+Num Peaks: 3
+105.0699 500
+133.0855 999
+231.1380 750
+
+Name: 4-Cyclohexylbutanamide hydrate
+DB#: MoNA000002
+InChIKey: HZGJWEZZXLGUAU-UHFFFAOYSA-N
+Precursor_type: [M+H]+
+Spectrum_type: MS2
+Ion_mode: N
+SMILES: NC(=O)CCCC1CCCCC1
+Num Peaks: 2
+95.0855 400
+170.1539 999
+
+Name: N/A
+DB#: MoNA000003
+InChIKey: UNQQFDCVEMVQHM-UHFFFAOYSA-N
+Spectrum_type: MS2
+Ion_mode: P
+Num Peaks: 1
+180.1383 999
+
+Name: Some compound with no key
+DB#: MoNA000004
+Spectrum_type: MS2
+Ion_mode: P
+Num Peaks: 1
+150.0000 999

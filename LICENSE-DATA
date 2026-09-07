@@ -1,0 +1,12 @@
+The audit outputs in this repository (data/processed/, paper/figures/, and
+any released audit CSVs) are licensed under the Creative Commons Attribution
+4.0 International License (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/
+
+Copyright (c) 2026 Oshoma Erumiseli
+
+The upstream sources carry their own terms, which this derived work does not
+override: LOTUS and COCONUT are CC0; GNPS reference spectra default to CC0;
+MassBank records are CC BY (per-record LICENSE field, occasionally CC BY-NC);
+MoNA licences vary per record and must be checked individually. See
+docs/LIMITATIONS.md.

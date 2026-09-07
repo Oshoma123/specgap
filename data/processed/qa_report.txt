@@ -1,0 +1,49 @@
+SPECGAP QA report
+============================================================
+
+PROVENANCE: bundled real-FORMAT fixtures from GNPS/MassBank/COCONUT documentation; NOT the real corpus
+
+SPECTRAL INDEX
+------------------------------------------------------------
+  spectra loaded:      9
+  joinable (InChIKey): 5
+  unique InChIKeys:    4
+  unique skeletons:    4
+    GNPS: 2 spectra, 2 unjoinable (100.0%)
+    MassBank: 3 spectra, 1 unjoinable (33.33%)
+    MoNA: 4 spectra, 1 unjoinable (25.0%)
+
+STRUCTURAL COVERAGE
+------------------------------------------------------------
+  structures loaded:   4
+  joinable:            3
+  unjoinable:          1
+  exact-InChIKey:      3 (100.0% of joinable)
+  skeleton-level:      3 (100.0% of joinable)
+  NOTE: coverage percentages use JOINABLE structures as the denominator; structures without a well-formed InChIKey are excluded, not counted as uncovered
+
+NAME-RECOVERABILITY
+------------------------------------------------------------
+  spectra:             9
+  assessable:          3
+  recovered:           3 (100.0% of assessable)
+  NOTE: recoverability uses ASSESSABLE spectra as the denominator: those with an InChIKey, a declared name, and a structure present in the reference set. All other outcomes are reported in status_counts
+
+  outcome breakdown:
+    recoverable: 3
+    structure_not_in_reference_set: 1
+    unjoinable_no_inchikey: 4
+    unjoinable_no_name: 1
+
+SPOT CHECKS (verify these by hand against the source)
+------------------------------------------------------------
+  [covered_exact] CNP0138595.0 (COCONUT) key=NETSQGRTUNRXEO-UHFFFAOYSA-N sources=MassBank;MoNA
+  [covered_exact] CNP0606256.0 (COCONUT) key=HZGJWEZZXLGUAU-UHFFFAOYSA-N sources=MoNA
+  [covered_exact] CNP0149754.0 (COCONUT) key=UNQQFDCVEMVQHM-UHFFFAOYSA-N sources=MoNA
+  [unjoinable] CNP0215845.0 (COCONUT) key=None sources=-
+
+SANITY CHECKS
+------------------------------------------------------------
+  skeleton coverage >= exact coverage: PASS
+  joinable <= total (structures): PASS
+  assessable <= total (spectra): PASS

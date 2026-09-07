@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.env
+.pytest_cache/
+# raw downloads are large and re-fetchable; provenance log is committed
+data/raw/*
+!data/raw/PROVENANCE.txt
+.DS_Store

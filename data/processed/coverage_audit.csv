@@ -1,0 +1,5 @@
+structure_id,source_db,inchikey,joinable,matched_exact,matched_skeleton,matching_sources,status
+CNP0138595.0,COCONUT,NETSQGRTUNRXEO-UHFFFAOYSA-N,True,True,True,MassBank;MoNA,covered_exact
+CNP0606256.0,COCONUT,HZGJWEZZXLGUAU-UHFFFAOYSA-N,True,True,True,MoNA,covered_exact
+CNP0149754.0,COCONUT,UNQQFDCVEMVQHM-UHFFFAOYSA-N,True,True,True,MoNA,covered_exact
+CNP0215845.0,COCONUT,,False,False,False,,unjoinable

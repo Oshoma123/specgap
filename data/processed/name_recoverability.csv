@@ -1,0 +1,10 @@
+spectrum_id,spectral_source,declared_name,inchikey,joinable,has_declared_name,structure_known,recoverable,method,status
+CCMSLIB00000077995,GNPS,Bortezomib (Velcade) [M+Na],,False,True,False,False,not_assessed,unjoinable_no_inchikey
+CCMSLIB00000072100,GNPS,Desferrioxamine B M+H,,False,True,False,False,not_assessed,unjoinable_no_inchikey
+MoNA000001,MoNA,Dehydrocostus lactone,NETSQGRTUNRXEO-UHFFFAOYSA-N,True,True,True,True,exact,recoverable
+MoNA000002,MoNA,4-Cyclohexylbutanamide hydrate,HZGJWEZZXLGUAU-UHFFFAOYSA-N,True,True,True,True,exact,recoverable
+MoNA000003,MoNA,,UNQQFDCVEMVQHM-UHFFFAOYSA-N,True,False,True,False,not_assessed,unjoinable_no_name
+MoNA000004,MoNA,Some compound with no key,,False,True,False,False,not_assessed,unjoinable_no_inchikey
+MSBNK-AAFC-AC000101,MassBank,Dehydrocostus lactone,NETSQGRTUNRXEO-UHFFFAOYSA-N,True,True,True,True,exact,recoverable
+MSBNK-AAFC-AC000102,MassBank,Caffeine,RYYVLZVUVIJVGH-UHFFFAOYSA-N,True,True,False,False,not_assessed,structure_not_in_reference_set
+MSBNK-AAFC-AC000103,MassBank,Compound without an InChIKey link,,False,True,False,False,not_assessed,unjoinable_no_inchikey

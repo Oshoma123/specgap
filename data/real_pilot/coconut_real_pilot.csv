@@ -1,0 +1,6 @@
+coconut_id,name,inchikey,smiles,in_gnps_collection,source_url,fetched
+CNP0606256.0,4-Cyclohexylbutanamide,HZGJWEZZXLGUAU-UHFFFAOYSA-N,NC(=O)CCCC1CCCCC1,False,https://coconut.naturalproducts.net/compound/CNP0606256.0,2026-09-01
+CNP0149754.0,"2,5-Dimethoxy-4-methylphenethylamine (2C-D)",UNQQFDCVEMVQHM-UHFFFAOYSA-N,COC1=CC(CCN)=C(OC)C=C1C,True,https://coconut.naturalproducts.net/compound/coconut_id/CNP0149754.0,2026-09-01
+CNP0256961.0,PD049166,,CCC=CCC=CC=CC(=O)CCCCCCCC(=O)O,True,https://coconut.naturalproducts.net/compound/coconut_id/CNP0256961,2026-09-01
+CNP0215845.0,(unnamed in COCONUT metadata),,COC(=O)C1=COC(OC2OC(CO)C(O)C(O)C2O)C2C1C(O)CC2(O)CO,False,https://coconut.naturalproducts.net/compound/coconut_id/CNP0215845,2026-09-01
+CNP0138595.0,Dehydrocostus lactone,NETSQGRTUNRXEO-UHFFFAOYSA-N,C=C1C(=O)OC2C1CCC(=C)C1CCC(=C)C12,True,https://coconut.naturalproducts.net/compounds/CNP0138595.0,2026-09-01

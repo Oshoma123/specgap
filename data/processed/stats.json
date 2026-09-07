@@ -1,0 +1,86 @@
+{
+  "provenance": "bundled real-FORMAT fixtures from GNPS/MassBank/COCONUT documentation; NOT the real corpus",
+  "fuzzy_threshold": 0.92,
+  "spectral_index": {
+    "n_spectra_total": 9,
+    "n_spectra_joinable": 5,
+    "n_unique_inchikeys": 4,
+    "n_unique_skeletons": 4,
+    "by_source": {
+      "GNPS": {
+        "n_total": 2,
+        "n_unjoinable": 2,
+        "pct_unjoinable": 100.0
+      },
+      "MassBank": {
+        "n_total": 3,
+        "n_unjoinable": 1,
+        "pct_unjoinable": 33.33
+      },
+      "MoNA": {
+        "n_total": 4,
+        "n_unjoinable": 1,
+        "pct_unjoinable": 25.0
+      }
+    }
+  },
+  "structural_coverage": {
+    "n_structures_total": 4,
+    "n_structures_joinable": 3,
+    "n_structures_unjoinable": 1,
+    "denominator_note": "coverage percentages use JOINABLE structures as the denominator; structures without a well-formed InChIKey are excluded, not counted as uncovered",
+    "exact_inchikey": {
+      "n_covered": 3,
+      "pct_of_joinable": 100.0
+    },
+    "skeleton": {
+      "n_covered": 3,
+      "pct_of_joinable": 100.0
+    },
+    "status_counts": {
+      "covered_exact": 3,
+      "unjoinable": 1
+    },
+    "by_structure_db": {
+      "COCONUT": {
+        "n": 4,
+        "n_joinable": 3,
+        "exact_pct_of_joinable": 100.0,
+        "skeleton_pct_of_joinable": 100.0
+      }
+    }
+  },
+  "name_recoverability": {
+    "n_spectra_total": 9,
+    "n_assessable": 3,
+    "denominator_note": "recoverability uses ASSESSABLE spectra as the denominator: those with an InChIKey, a declared name, and a structure present in the reference set. All other outcomes are reported in status_counts",
+    "n_recovered": 3,
+    "pct_of_assessable": 100.0,
+    "status_counts": {
+      "unjoinable_no_inchikey": 4,
+      "recoverable": 3,
+      "unjoinable_no_name": 1,
+      "structure_not_in_reference_set": 1
+    },
+    "method_counts": {
+      "exact": 3
+    },
+    "by_spectral_source": {
+      "GNPS": {
+        "n": 2,
+        "n_assessable": 0,
+        "recovered_pct_of_assessable": null
+      },
+      "MassBank": {
+        "n": 3,
+        "n_assessable": 1,
+        "recovered_pct_of_assessable": 100.0
+      },
+      "MoNA": {
+        "n": 4,
+        "n_assessable": 2,
+        "recovered_pct_of_assessable": 100.0
+      }
+    }
+  }
+}

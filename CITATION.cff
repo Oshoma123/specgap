@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use SPECGAP, please cite it as below."
+title: "SPECGAP: an open engine for assessing the coverage of public mass spectral libraries"
+authors:
+  - family-names: "Erumiseli"
+    given-names: "Oshoma"
+    orcid: "https://orcid.org/0009-0004-3813-4650"
+    affiliation: "Independent Researcher, Corvallis, Oregon, USA"
+    email: "Erumiseli.oshomag@gmail.com"
+version: "0.2.0"
+date-released: "2026-09-07"
+license: MIT
+repository-code: "https://github.com/Oshoma123/specgap"
+abstract: >
+  SPECGAP cross-matches natural-product structure sets (LOTUS, COCONUT)
+  against the open spectral-library layer (GNPS, MassBank, MoNA), reporting
+  structural coverage and name-recoverability. It parses the sources' native
+  formats (MGF, MSP, GNPS JSON, MassBank records, SDF) and distinguishes
+  structures that are genuinely uncovered from those that cannot be joined at
+  all for want of a structure identifier.
