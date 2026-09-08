@@ -16,58 +16,50 @@ Founded September 2026.
 Maintainer: Oshoma Erumiseli ([ORCID 0009-0004-3813-4650](https://orcid.org/0009-0004-3813-4650)).
 Code: [MIT](LICENSE) · Audit outputs: [CC BY 4.0](LICENSE-DATA).
 
-## Status: engine complete; first real library audited
+## Status: two-sided coverage audit complete
 
-The engine is finished and tested (69 tests). It parses the sources' **native
-formats** — GNPS MGF, GNPS JSON, MoNA/GNPS MSP, MassBank records, and COCONUT
-and LOTUS SDF — with fixtures reproducing field layouts from those projects'
-own published specifications.
+Engine finished and tested (69 tests), parsing the sources' **native formats**
+— GNPS MGF, GNPS JSON, MoNA/GNPS MSP, MassBank records, COCONUT and LOTUS SDF.
 
-**A full real run against MassBank release 2026.03 has been completed**:
-139,240 records parsed, 98.58% joinable, 20,335 distinct compounds. Findings
-and caveats in [`docs/MASSBANK_INVENTORY.md`](docs/MASSBANK_INVENTORY.md).
+**Full real runs completed against both sides:**
+- MassBank release 2026.03 — 139,240 records ([`docs/MASSBANK_INVENTORY.md`](docs/MASSBANK_INVENTORY.md))
+- COCONUT September 2026 × MassBank 2026.03 — 738,823 structures ([`docs/COVERAGE_AUDIT.md`](docs/COVERAGE_AUDIT.md))
 
-Still outstanding: the **structure side**. Structural coverage is a two-sided
-measurement, and LOTUS/COCONUT have not yet been downloaded and run, so no
-coverage percentage is published here.
+Still outstanding: GNPS and MoNA on the spectral side. Current coverage
+figures are **coverage by MassBank alone**, not by the whole open spectral
+layer.
 
 ## Selected findings
 
+**96% of natural-product structure space has no MassBank spectrum.** Of
+738,823 COCONUT structures, 8,025 (1.09%) have an exact-InChIKey match in
+MassBank; 27,068 (3.66%) match at skeleton level. Even if every one of
+MassBank's 20,335 distinct compounds were a COCONUT natural product, exact
+coverage could not exceed 2.75%.
+
+**Skeleton matching triples coverage (3.37×).** Relaxing from exact InChIKey
+to molecular skeleton adds 19,043 structures — far more than either source's
+internal stereochemistry redundancy explains. The two databases frequently
+annotate the same molecular graph with different stereochemistry.
+
+**Naming is not the bottleneck; acquisition is.** 89.87% of assessable
+spectra recover their compound name, against ~4% structural coverage. The
+two layers are decoupled.
+
+**MassBank's natural-product content is ~4× what its own field reports.**
+39.5% of its distinct compounds appear in COCONUT, versus the 9.45% its
+`CH$COMPOUND_CLASS` field claims — that field is unpopulated for 53.4% of
+records. Do not filter MassBank for natural products with it.
+
+**Joinability spans the full range.** COCONUT 100%, MassBank 98.58%, GNPS
+`.mgf` 0% — the MGF format defines no InChIKey field, so no coverage number
+computed over it is meaningful.
+
 **Record counts overstate chemical coverage ~7×.** MassBank's 139,240
-spectra represent 20,335 distinct compounds — 6.75 spectra per compound
-across adducts, collision energies and instruments.
+spectra represent 20,335 distinct compounds.
 
-**MassBank is not uniformly CC BY.** Per record: 34.8% CC BY, but 30.2%
-carry a non-commercial restriction and 149 records are no-derivatives.
-Redistributing a derived dataset as "MassBank, CC BY" would misstate the
-terms for nearly a third of it.
-
-**Stereochemistry accounts for 11.4% of apparent distinct compounds** —
-20,335 InChIKeys collapse to 18,026 skeletons, making the exact-vs-skeleton
-matching choice consequential rather than cosmetic.
-
-## First finding: the GNPS MGF export cannot be joined at all
-
-The GNPS MGF format defines `SMILES`, `INCHI` and `INCHIAUX` but **no
-`INCHIKEY` field**, and both structure fields are frequently the literal
-string `N/A`. Every GNPS MGF record is therefore *unjoinable* for
-InChIKey-based coverage analysis.
-
-This matters beyond SPECGAP: an audit that reads GNPS via MGF and reports the
-result as *uncovered* structure space is measuring the export format rather
-than the library's content, and will overstate the coverage gap
-systematically. Use the `.json` or `.msp` exports instead.
-
-SPECGAP therefore separates two outcomes that are easy to conflate:
-
-| Outcome | Meaning |
-|---|---|
-| `uncovered` | joinable, and genuinely absent from every spectral library |
-| `unjoinable` | no usable structure identifier — the question cannot be answered |
-
-Every reported rate names its denominator for the same reason. Details in
-[`docs/FORMATS.md`](docs/FORMATS.md); pinned by
-`tests/test_e2e.py::test_gnps_mgf_is_wholly_unjoinable`.
+**MassBank is not uniformly CC BY.** 30.2% of records carry a non-commercial
+restriction; 149 are no-derivatives.
 
 ## Install and run
 
@@ -99,10 +91,11 @@ src/specgap/          the library
   parsers/            mgf, msp, gnps_json, massbank, sdf
 scripts/              01_fetch, 02_audit, 03_figures,
                       04_inventory (single-library audit),
-                      05_inventory_figures
+                      05_inventory_figures, 06_coverage_figures
 tests/                69 tests; fixtures reproduce documented field layouts
-docs/                 FORMATS, MASSBANK_INVENTORY (first real result),
-                      BUILD_SPEC, CODEBOOK, LIMITATIONS, VERIFY_CHECKLIST
+docs/                 COVERAGE_AUDIT (headline result), MASSBANK_INVENTORY,
+                      FORMATS, BUILD_SPEC, CODEBOOK, LIMITATIONS,
+                      VERIFY_CHECKLIST
 data/real_pilot/      5 hand-verified live COCONUT records
 ```
 

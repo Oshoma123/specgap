@@ -11,3 +11,7 @@ venv/
 data/raw/*
 !data/raw/PROVENANCE.txt
 .DS_Store
+
+# large regenerable audit outputs (700k+ rows); commit stats.json instead
+data/processed/coverage_audit.csv
+data/processed/name_recoverability.csv

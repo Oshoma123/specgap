@@ -1,0 +1,42 @@
+{
+  "provenance": "COCONUT SDF 2D 09-2026 (CC0) vs MassBank-data 2026.03, full corpora, run 2026-09-07",
+  "spectral_index": {
+    "n_spectra_total": 139240,
+    "n_spectra_joinable": 137264,
+    "n_unique_inchikeys": 20335,
+    "n_unique_skeletons": 18026,
+    "by_source": {
+      "MassBank": {
+        "n_total": 139240,
+        "n_unjoinable": 1976,
+        "pct_unjoinable": 1.42
+      }
+    }
+  },
+  "structural_coverage": {
+    "n_structures_total": 738823,
+    "n_structures_joinable": 738823,
+    "n_structures_unjoinable": 0,
+    "exact_inchikey": {
+      "n_covered": 8025,
+      "pct_of_joinable": 1.09
+    },
+    "skeleton": {
+      "n_covered": 27068,
+      "pct_of_joinable": 3.66
+    }
+  },
+  "name_recoverability": {
+    "n_spectra_total": 139240,
+    "n_assessable": 72981,
+    "n_recovered": 65588,
+    "pct_of_assessable": 89.87,
+    "status_counts": {
+      "recoverable": 65588,
+      "structure_not_in_reference_set": 64252,
+      "unjoinable_no_inchikey": 1976,
+      "unjoinable_no_name": 31,
+      "unrecoverable": 7393
+    }
+  }
+}
