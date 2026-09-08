@@ -2,7 +2,7 @@
 
 **An open engine for assessing the coverage of public mass spectral libraries.**
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22653062.svg)](https://doi.org/10.5281/zenodo.22653062)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22653061.svg)](https://doi.org/10.5281/zenodo.22653061)
 
 SPECGAP cross-matches natural-product structure sets (**LOTUS**, **COCONUT**)
 against the open spectral-library layer (**GNPS**, **MassBank**, **MoNA**) and
@@ -120,7 +120,7 @@ per-record licensing.
 ## Citation
 
 Erumiseli, O. (2026). *SPECGAP: an open engine for assessing the coverage of
-public mass spectral libraries*. Zenodo. <https://doi.org/10.5281/zenodo.22653062>
+public mass spectral libraries*. Zenodo. <https://doi.org/10.5281/zenodo.22653061>
 
 Machine-readable metadata in [`CITATION.cff`](CITATION.cff). The DOI above
 resolves to the archived release.

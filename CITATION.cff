@@ -7,10 +7,10 @@ authors:
     orcid: "https://orcid.org/0009-0004-3813-4650"
     affiliation: "Independent Researcher, Corvallis, Oregon, USA"
     email: "Erumiseli.oshomag@gmail.com"
-version: "0.4.1"
+version: "0.4.2"
 date-released: "2026-09-07"
 license: MIT
-doi: "10.5281/zenodo.22653062"
+doi: "10.5281/zenodo.22653061"
 repository-code: "https://github.com/Oshoma123/specgap"
 abstract: >
   SPECGAP cross-matches natural-product structure sets (LOTUS, COCONUT)
