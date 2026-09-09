@@ -19,6 +19,7 @@ from .msp import parse_msp
 from .gnps_json import parse_gnps_json
 from .massbank import parse_massbank_record, parse_massbank_dir, parse_massbank_stream, is_natural_product
 from .sdf import parse_sdf
+from .lotus_csv import parse_lotus_csv
 
 __all__ = [
     "SpectralEntry",
@@ -31,4 +32,5 @@ __all__ = [
     "parse_massbank_stream",
     "is_natural_product",
     "parse_sdf",
+    "parse_lotus_csv",
 ]

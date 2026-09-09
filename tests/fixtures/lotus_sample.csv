@@ -1,0 +1,6 @@
+structure_wikidata,structure_inchikey,structure_smiles,structure_inchi,structure_nameTraditional,organism_name,organism_taxonomy_09species
+Q43656,NETSQGRTUNRXEO-UHFFFAOYSA-N,C=C1C(=O)OC2C1CCC(=C)C1CCC(=C)C12,InChI=1S/C15H18O2,Dehydrocostus lactone,Saussurea lappa,Saussurea lappa
+Q43656,NETSQGRTUNRXEO-UHFFFAOYSA-N,C=C1C(=O)OC2C1CCC(=C)C1CCC(=C)C12,InChI=1S/C15H18O2,Dehydrocostus lactone,Aucklandia lappa,Aucklandia lappa
+Q43656,NETSQGRTUNRXEO-UHFFFAOYSA-N,C=C1C(=O)OC2C1CCC(=C)C1CCC(=C)C12,InChI=1S/C15H18O2,Epiligulyl oxide,Saussurea costus,Saussurea costus
+Q60235,HZGJWEZZXLGUAU-UHFFFAOYSA-N,NC(=O)CCCC1CCCCC1,InChI=1S/C10H19NO,4-Cyclohexylbutanamide,Crassocephalum crepidioides,Crassocephalum crepidioides
+Q99999,,CCO,,Missing key compound,Some organism,Some organism

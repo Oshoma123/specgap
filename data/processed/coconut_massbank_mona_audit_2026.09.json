@@ -1,0 +1,55 @@
+{
+  "provenance": "COCONUT SDF 2D 09-2026 (CC0) x [MassBank-data 2026.03 + MoNA experimental export], MS2 only, run 2026-09-07",
+  "ms_level_filter": "MS2",
+  "spectral_index": {
+    "n_spectra_total": 1788666,
+    "n_spectra_joinable": 1765081,
+    "n_unique_inchikeys": 249218,
+    "n_unique_skeletons": 242695,
+    "by_source": {
+      "MassBank": {
+        "n_total": 117211,
+        "n_unjoinable": 1053,
+        "pct_unjoinable": 0.9
+      },
+      "MoNA": {
+        "n_total": 1671455,
+        "n_unjoinable": 22532,
+        "pct_unjoinable": 1.35
+      }
+    }
+  },
+  "structural_coverage": {
+    "n_structures_total": 738823,
+    "n_structures_joinable": 738823,
+    "n_structures_unjoinable": 0,
+    "exact_inchikey": {
+      "n_covered": 15338,
+      "pct_of_joinable": 2.08
+    },
+    "skeleton": {
+      "n_covered": 58225,
+      "pct_of_joinable": 7.88
+    }
+  },
+  "name_recoverability": {
+    "n_spectra_total": 1788666,
+    "n_assessable": 245992,
+    "n_recovered": 204543,
+    "pct_of_assessable": 83.15,
+    "status_counts": {
+      "recoverable": 204543,
+      "structure_not_in_reference_set": 1518798,
+      "unjoinable_no_inchikey": 23585,
+      "unjoinable_no_name": 291,
+      "unrecoverable": 41449
+    }
+  },
+  "massbank_ms_levels": {
+    "MS2": 117211,
+    "MS": 21011,
+    "MS3": 929,
+    "MS4": 70,
+    "MSn": 19
+  }
+}

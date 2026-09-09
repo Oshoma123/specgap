@@ -31,8 +31,8 @@ from specgap.coverage import (  # noqa: E402
     SpectralIndex, build_name_lookup, name_recoverability, structural_coverage,
 )
 from specgap.parsers import (  # noqa: E402
-    parse_gnps_json, parse_massbank_dir, parse_massbank_stream, parse_mgf,
-    parse_msp, parse_sdf,
+    parse_gnps_json, parse_lotus_csv, parse_massbank_dir, parse_massbank_stream,
+    parse_mgf, parse_msp, parse_sdf,
 )
 from specgap.report import (  # noqa: E402
     coverage_stats, index_stats, name_stats, qa_report,
@@ -74,6 +74,11 @@ def load_structures(args):
         path, label = split_spec(item, "COCONUT")
         with open(path, encoding="utf-8", errors="replace") as fh:
             entries.extend(parse_sdf(fh, source=label))
+        print(f"  structures: {len(entries):>8} after {path} ({label})")
+    for item in args.structures_csv or []:
+        path, label = split_spec(item, "LOTUS")
+        print(f"  reading {path} ({label}, csv)", flush=True)
+        entries.extend(parse_lotus_csv(path, source=label))
         print(f"  structures: {len(entries):>8} after {path} ({label})")
     return entries
 
@@ -128,12 +133,18 @@ def main():
     ap = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--structures", nargs="*", help="SDF path[:LABEL]")
+    ap.add_argument("--structures-csv", nargs="*",
+                    help="LOTUS-style CSV path[:LABEL] (.gz accepted)")
     ap.add_argument("--spectra-mgf", nargs="*", help="MGF path[:LABEL]")
     ap.add_argument("--spectra-msp", nargs="*", help="MSP path[:LABEL]")
     ap.add_argument("--spectra-json", nargs="*", help="GNPS JSON path")
     ap.add_argument("--spectra-massbank", nargs="*", help="MassBank file or directory")
     ap.add_argument("--out", default="data/processed")
     ap.add_argument("--fuzzy-threshold", type=float, default=0.92)
+    ap.add_argument("--exclude-propagated", action="store_true",
+                    help="drop GNPS_PROPOGATED spectra: computationally "
+                         "propagated from reference spectra, not measured, "
+                         "and not valid evidence of coverage")
     ap.add_argument("--ms-level", default=None,
                     help="keep only spectra whose recorded level matches this "
                          "(e.g. MS2). MS1 spectra give a mass, not a "
@@ -146,7 +157,7 @@ def main():
     print("Loading structures...")
     structures = load_structures(args)
     if not structures:
-        sys.exit("need at least one structure file")
+        sys.exit("need at least one structure file (--structures or --structures-csv)")
 
     # Spectra are streamed twice rather than held in memory: the spectral side
     # can be far larger than the structure side (MoNA experimental export is
@@ -155,6 +166,8 @@ def main():
     def spectra_stream():
         for entry in load_spectra(args):
             if args.ms_level and (entry.ms_level or "").upper() != args.ms_level.upper():
+                continue
+            if args.exclude_propagated and "PROPOGATED" in (entry.compound_class or "").upper():
                 continue
             yield entry
 
@@ -191,6 +204,7 @@ def main():
     stats = {
         "provenance": args.provenance,
         "ms_level_filter": args.ms_level,
+        "propagated_excluded": args.exclude_propagated,
         "fuzzy_threshold": args.fuzzy_threshold,
         "spectral_index": index_stats(index),
         "structural_coverage": coverage_stats(cov_rows),

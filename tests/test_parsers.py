@@ -254,3 +254,73 @@ def test_msp_reads_inchikey_from_real_mona_layout():
     assert e.inchikey == "JFPVXVDWJQMJEE-IZRZKJBUSA-N"
     assert e.primary_name == "Cefuroxime"
     assert e.n_peaks == 2
+
+
+# ------------------------------------------------- LOTUS CSV (structures)
+
+
+def test_lotus_csv_aggregates_rows_into_distinct_structures():
+    """LOTUS ships one row per (structure, organism, reference) triple.
+    Emitting one entry per row would count a compound found in fifty
+    organisms fifty times and inflate every coverage denominator.
+    """
+    from specgap.parsers import parse_lotus_csv
+    entries = list(parse_lotus_csv(
+        os.path.join(FIXTURES, "lotus_sample.csv"), verbose=False))
+    assert len(entries) == 2          # from 5 rows
+    keys = {e.inchikey for e in entries}
+    assert keys == {"NETSQGRTUNRXEO-UHFFFAOYSA-N", "HZGJWEZZXLGUAU-UHFFFAOYSA-N"}
+
+
+def test_lotus_csv_merges_names_and_organisms():
+    from specgap.parsers import parse_lotus_csv
+    entries = {e.inchikey: e for e in parse_lotus_csv(
+        os.path.join(FIXTURES, "lotus_sample.csv"), verbose=False)}
+    e = entries["NETSQGRTUNRXEO-UHFFFAOYSA-N"]
+    assert e.names == ["Dehydrocostus lactone", "Epiligulyl oxide"]
+    assert len(e.organisms) == 3
+
+
+def test_lotus_csv_skips_rows_without_inchikey():
+    from specgap.parsers import parse_lotus_csv
+    entries = list(parse_lotus_csv(
+        os.path.join(FIXTURES, "lotus_sample.csv"), verbose=False))
+    assert all(e.inchikey for e in entries)
+
+
+# --------------------------------------- GNPS JSON structure identifiers
+
+
+def test_gnps_json_reads_inchikey_from_smiles_derived_field():
+    """GNPS JSON carries InChIKey_smiles / InChIKey_inchi, which is why GNPS
+    can be audited via JSON but not via MGF (no key field at all there).
+    """
+    import io, json
+    from specgap.parsers import parse_gnps_json
+    recs = [{"spectrum_id": "A", "Compound_Name": "X",
+             "InChIKey_smiles": "NETSQGRTUNRXEO-UHFFFAOYSA-N",
+             "library_membership": "GNPS-LIBRARY", "peaks_json": "[[1,2]]"}]
+    e = next(parse_gnps_json(io.StringIO(json.dumps(recs))))
+    assert e.inchikey == "NETSQGRTUNRXEO-UHFFFAOYSA-N"
+
+
+def test_gnps_json_falls_back_to_inchi_derived_key():
+    import io, json
+    from specgap.parsers import parse_gnps_json
+    recs = [{"spectrum_id": "B", "Compound_Name": "Y",
+             "InChIKey_inchi": "HZGJWEZZXLGUAU-UHFFFAOYSA-N",
+             "library_membership": "GNPS-LIBRARY", "peaks_json": "[]"}]
+    e = next(parse_gnps_json(io.StringIO(json.dumps(recs))))
+    assert e.inchikey == "HZGJWEZZXLGUAU-UHFFFAOYSA-N"
+
+
+def test_gnps_json_captures_library_membership_for_propagated_filter():
+    """GNPS_PROPOGATED spectra are computationally propagated, not measured,
+    and must be excludable before reporting coverage."""
+    import io, json
+    from specgap.parsers import parse_gnps_json
+    recs = [{"spectrum_id": "C", "Compound_Name": "Z",
+             "InChIKey_smiles": "NETSQGRTUNRXEO-UHFFFAOYSA-N",
+             "library_membership": "GNPS_PROPOGATED", "peaks_json": "[]"}]
+    e = next(parse_gnps_json(io.StringIO(json.dumps(recs))))
+    assert "PROPOGATED" in (e.compound_class or "").upper()

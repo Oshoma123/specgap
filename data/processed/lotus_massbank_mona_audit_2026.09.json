@@ -1,0 +1,48 @@
+{
+  "provenance": "LOTUS 260413 frozen (Wikidata, CC0) x [MassBank 2026.03 + MoNA experimental], MS2 only, run 2026-09-09",
+  "ms_level_filter": "MS2",
+  "spectral_index": {
+    "n_spectra_total": 1788666,
+    "n_spectra_joinable": 1765081,
+    "n_unique_inchikeys": 249218,
+    "n_unique_skeletons": 242695,
+    "by_source": {
+      "MassBank": {
+        "n_total": 117211,
+        "n_unjoinable": 1053,
+        "pct_unjoinable": 0.9
+      },
+      "MoNA": {
+        "n_total": 1671455,
+        "n_unjoinable": 22532,
+        "pct_unjoinable": 1.35
+      }
+    }
+  },
+  "structural_coverage": {
+    "n_structures_total": 227298,
+    "n_structures_joinable": 227298,
+    "n_structures_unjoinable": 0,
+    "exact_inchikey": {
+      "n_covered": 9251,
+      "pct_of_joinable": 4.07
+    },
+    "skeleton": {
+      "n_covered": 22726,
+      "pct_of_joinable": 10.0
+    }
+  },
+  "name_recoverability": {
+    "n_spectra_total": 1788666,
+    "n_assessable": 282961,
+    "n_recovered": 122026,
+    "pct_of_assessable": 43.12,
+    "status_counts": {
+      "recoverable": 122026,
+      "structure_not_in_reference_set": 1481829,
+      "unjoinable_no_inchikey": 23585,
+      "unjoinable_no_name": 291,
+      "unrecoverable": 160935
+    }
+  }
+}

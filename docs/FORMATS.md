@@ -107,3 +107,43 @@ case-insensitively against a list of known aliases, since tag names differ
 between COCONUT and LOTUS and have changed across releases. Multi-valued
 fields are split on `;` and `|`. Records missing an InChIKey are still
 emitted, so they can be counted as unjoinable rather than silently dropped.
+
+
+## GNPS JSON carries InChIKeys; GNPS MGF does not
+
+A correction to this document's earlier reading. The GNPS **JSON** export
+exposes two InChIKey fields that the MGF export lacks entirely:
+
+- `InChIKey_smiles` — hashed from the deposited SMILES
+- `InChIKey_inchi` — hashed from the deposited InChI
+
+GNPS has therefore already performed the structure-to-key conversion, so
+auditing GNPS requires no cheminformatics toolkit on SPECGAP's side. The
+practical rule stands and sharpens: **audit GNPS via `.json` or `.msp`,
+never via `.mgf`.**
+
+Where the two keys disagree, the deposited SMILES and InChI disagree for
+that record — a data-quality signal worth reporting rather than silently
+resolving. SPECGAP prefers a plain `InChIKey` field, then the SMILES-derived
+key, then the InChI-derived one, and the order is explicit in
+`parsers/gnps_json.py`.
+
+## Computationally derived spectra must be excluded
+
+Two of the three spectral sources ship large volumes of spectra that were
+never measured:
+
+| Source | Marker | Scale |
+|---|---|---|
+| MoNA | separate in-silico export | 3,191,104 predicted vs 1,752,437 experimental |
+| GNPS | `library_membership` contains `GNPS_PROPOGATED` | propagated from reference spectra |
+
+A predicted or propagated spectrum is a computed expectation, not evidence
+that a compound has been measured, and cannot support identification of an
+unknown. Counting them as coverage would measure how much computation has
+been applied to a database rather than how much of chemical space has been
+observed.
+
+SPECGAP handles both by exclusion: use MoNA's experimental export, and pass
+`--exclude-propagated` for GNPS. Both filters *reduce* reported coverage,
+which is the point.

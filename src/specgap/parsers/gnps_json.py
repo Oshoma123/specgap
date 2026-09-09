@@ -32,8 +32,13 @@ Parsing hazards handled here:
   - 'Ion_Mode' values carry leading whitespace (' Negative' in GNPS's own
     documented example), so values are stripped before use.
   - INCHI values are sometimes wrapped in escaped double quotes.
-  - Like the MGF export, GNPS JSON carries no InChIKey field; SMILES/InChI
-    are present instead. See docs/LIMITATIONS.md.
+  - Unlike the MGF export, GNPS JSON DOES carry InChIKeys, as
+    'InChIKey_smiles' and 'InChIKey_inchi' (hashes GNPS computes from the
+    deposited SMILES and InChI). This is why SPECGAP can audit GNPS via JSON
+    but not via MGF.
+  - 'library_membership' values containing GNPS_PROPOGATED mark
+    computationally propagated spectra, not measurements. Filter them out
+    before reporting coverage.
 
 The top level may be a JSON array or newline-delimited JSON; both are handled
 because GNPS has published both shapes.
@@ -80,13 +85,26 @@ def record_to_entry(record: dict) -> SpectralEntry:
     return SpectralEntry(
         spectrum_id=_get(record, "spectrum_id", "SpectrumID") or "GNPS:unidentified",
         source="GNPS",
-        inchikey=_get(record, "InChIKey", "InChIKey_smiles", "inchikey"),
+        # GNPS derives InChIKeys from the deposited structure and exposes
+        # both: InChIKey_smiles (hashed from SMILES) and InChIKey_inchi
+        # (hashed from InChI). They usually agree; where they disagree the
+        # deposited SMILES and InChI disagree, which is a data-quality
+        # signal in itself. Preference order is explicit rather than
+        # incidental: a plain InChIKey field if present, then the
+        # SMILES-derived key, then the InChI-derived one.
+        inchikey=_get(record, "InChIKey", "inchikey", "InChIKey_smiles",
+                      "InChIKey_inchi"),
         smiles=_get(record, "Smiles", "SMILES"),
         inchi=_get(record, "INCHI", "InChI"),
         names=[name] if name else [],
         ion_mode=(lambda m: m.lower() if m else None)(_get(record, "Ion_Mode", "ionmode")),
         ms_level=_get(record, "ms_level", "MSLEVEL"),
         library_quality=_get(record, "Library_Class", "LIBRARYQUALITY"),
+        # library_membership names the contributing library. Values containing
+        # GNPS_PROPOGATED mark spectra propagated COMPUTATIONALLY from
+        # reference spectra rather than measured — the GNPS analogue of MoNA's
+        # in-silico set. They must not be counted as reference coverage.
+        compound_class=_get(record, "library_membership"),
         n_peaks=_count_peaks(record),
     )
 
