@@ -210,3 +210,47 @@ def test_gnps_json_counts_peaks_from_peaks_json():
         entries = list(parse_gnps_json(fh))
     assert entries[0].n_peaks == 2
     assert entries[1].n_peaks == 1
+
+
+# ------------------------------------------- MoNA real-format regressions
+
+
+def test_msp_normalizes_single_letter_ion_modes():
+    """MoNA writes 'P'/'N', MassBank 'POSITIVE'/'NEGATIVE', GNPS ' Negative'.
+    Without normalization these become four modes for two physical states.
+    Found against a real MoNA experimental export record.
+    """
+    import io
+    from specgap.parsers import parse_msp
+    msp = ("Name: A\nDB#: 1\nInChIKey: JFPVXVDWJQMJEE-IZRZKJBUSA-N\n"
+           "Ion_mode: N\nNum Peaks: 1\n100 1\n\n"
+           "Name: B\nDB#: 2\nInChIKey: MUMGGOZAMZWBJJ-DYKIIFRCSA-N\n"
+           "Ion_mode: P\nNum Peaks: 1\n100 1\n")
+    modes = [e.ion_mode for e in parse_msp(io.StringIO(msp))]
+    assert modes == ["negative", "positive"]
+
+
+def test_msp_captures_spectrum_type_as_ms_level():
+    """MoNA marks MS1 vs MS2 in Spectrum_type. MS1 gives a mass, not a
+    fragmentation fingerprint, so the level must be available for filtering.
+    """
+    import io
+    from specgap.parsers import parse_msp
+    msp = ("Name: A\nDB#: 1\nInChIKey: JFPVXVDWJQMJEE-IZRZKJBUSA-N\n"
+           "Spectrum_type: MS1\nNum Peaks: 1\n100 1\n")
+    assert next(parse_msp(io.StringIO(msp))).ms_level == "MS1"
+
+
+def test_msp_reads_inchikey_from_real_mona_layout():
+    """Field order and the Comments blob from an actual MoNA record."""
+    import io
+    from specgap.parsers import parse_msp
+    msp = ('Name: Cefuroxime\nSynon: $:00in-source\nDB#: WA002994\n'
+           'InChIKey: JFPVXVDWJQMJEE-IZRZKJBUSA-N\nSpectrum_type: MS1\n'
+           'Ion_mode: N\nFormula: C16H16N4O8S\n'
+           'Comments: "SMILES=CO/N=C(/C1=CC=CO1)" "cas=55268-75-2" "license=CC BY-NC"\n'
+           'Num Peaks: 2\n100 3.1\n101 1.2\n')
+    e = next(parse_msp(io.StringIO(msp)))
+    assert e.inchikey == "JFPVXVDWJQMJEE-IZRZKJBUSA-N"
+    assert e.primary_name == "Cefuroxime"
+    assert e.n_peaks == 2

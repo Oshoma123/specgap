@@ -79,30 +79,49 @@ def load_structures(args):
 
 
 def load_spectra(args):
-    entries = []
+    """Yield spectral entries lazily; never materialise the full library.
+
+    The spectral side can be far larger than the structure side (the MoNA
+    experimental export is ~11 GB / 1.75M records; GNPS ~2.9M), so this is a
+    generator and the caller streams it. Progress is reported by count since
+    a silent multi-minute parse is indistinguishable from a hang.
+    """
+    n = 0
+
+    def tick(label):
+        nonlocal n
+        n += 1
+        if n % 100000 == 0:
+            print(f"  ... {n:,} spectra parsed ({label})", flush=True)
+
     for item in args.spectra_mgf or []:
         path, label = split_spec(item, "GNPS")
+        print(f"  reading {path} (mgf/{label})", flush=True)
         with open(path, encoding="utf-8", errors="replace") as fh:
-            entries.extend(parse_mgf(fh, source=label))
-        print(f"  spectra:    {len(entries):>8} after {path} (mgf/{label})")
+            for e in parse_mgf(fh, source=label):
+                tick(label); yield e
     for item in args.spectra_msp or []:
         path, label = split_spec(item, "MoNA")
+        print(f"  reading {path} (msp/{label})", flush=True)
         with open(path, encoding="utf-8", errors="replace") as fh:
-            entries.extend(parse_msp(fh, source=label))
-        print(f"  spectra:    {len(entries):>8} after {path} (msp/{label})")
+            for e in parse_msp(fh, source=label):
+                tick(label); yield e
     for item in args.spectra_json or []:
         path, _label = split_spec(item, "GNPS")
+        print(f"  reading {path} (gnps-json)", flush=True)
         with open(path, encoding="utf-8", errors="replace") as fh:
-            entries.extend(parse_gnps_json(fh))
-        print(f"  spectra:    {len(entries):>8} after {path} (gnps-json)")
+            for e in parse_gnps_json(fh):
+                tick("GNPS"); yield e
     for path in args.spectra_massbank or []:
+        print(f"  reading {path} (massbank)", flush=True)
         if os.path.isdir(path):
-            entries.extend(parse_massbank_dir(path))
+            for e in parse_massbank_dir(path):
+                tick("MassBank"); yield e
         else:
             with open(path, encoding="utf-8", errors="replace") as fh:
-                entries.extend(parse_massbank_stream(fh))
-        print(f"  spectra:    {len(entries):>8} after {path} (massbank)")
-    return entries
+                for e in parse_massbank_stream(fh):
+                    tick("MassBank"); yield e
+    print(f"  done: {n:,} spectra", flush=True)
 
 
 def main():
@@ -115,21 +134,41 @@ def main():
     ap.add_argument("--spectra-massbank", nargs="*", help="MassBank file or directory")
     ap.add_argument("--out", default="data/processed")
     ap.add_argument("--fuzzy-threshold", type=float, default=0.92)
+    ap.add_argument("--ms-level", default=None,
+                    help="keep only spectra whose recorded level matches this "
+                         "(e.g. MS2). MS1 spectra give a mass, not a "
+                         "fragmentation fingerprint, and are not usable as "
+                         "identification references")
     ap.add_argument("--provenance", required=True,
                     help="one line describing exactly what data this run used")
     args = ap.parse_args()
 
-    print("Loading inputs...")
+    print("Loading structures...")
     structures = load_structures(args)
-    spectra = load_spectra(args)
-    if not structures or not spectra:
-        sys.exit("need at least one structure file and one spectra file")
+    if not structures:
+        sys.exit("need at least one structure file")
 
-    print("Indexing and matching...")
-    index = SpectralIndex.build(spectra)
+    # Spectra are streamed twice rather than held in memory: the spectral side
+    # can be far larger than the structure side (MoNA experimental export is
+    # ~11 GB / 1.75M records, GNPS ~2.9M), and materialising it would dominate
+    # memory for no benefit. Re-reading from disk is cheaper than paging.
+    def spectra_stream():
+        for entry in load_spectra(args):
+            if args.ms_level and (entry.ms_level or "").upper() != args.ms_level.upper():
+                continue
+            yield entry
+
+    print("Pass 1/2: indexing spectra...")
+    index = SpectralIndex.build(spectra_stream())
+    if index.n_total == 0:
+        sys.exit("no spectra parsed (check paths, and --ms-level if set)")
+
+    print("Matching structures...")
     cov_rows = structural_coverage(structures, index)
     lookup = build_name_lookup(structures)
-    name_rows = name_recoverability(spectra, lookup, args.fuzzy_threshold)
+
+    print("Pass 2/2: name-recoverability...")
+    name_rows = name_recoverability(spectra_stream(), lookup, args.fuzzy_threshold)
 
     os.makedirs(args.out, exist_ok=True)
 
@@ -151,6 +190,7 @@ def main():
 
     stats = {
         "provenance": args.provenance,
+        "ms_level_filter": args.ms_level,
         "fuzzy_threshold": args.fuzzy_threshold,
         "spectral_index": index_stats(index),
         "structural_coverage": coverage_stats(cov_rows),

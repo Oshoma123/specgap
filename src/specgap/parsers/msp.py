@@ -30,6 +30,10 @@ _SMILES_KEYS = {"smiles", "canonical_smiles"}
 _INCHI_KEYS = {"inchi", "inchi_code"}
 _IONMODE_KEYS = {"ion_mode", "ionmode", "polarity"}
 _ID_KEYS = {"db#", "id", "spectrum_id", "spectrumid", "accession"}
+# MoNA records carry Spectrum_type: MS1 / MS2. MS1 spectra give a mass, not a
+# fragmentation fingerprint, and are not usable as identification references,
+# so the level must be captured to allow filtering (see docs/LIMITATIONS.md).
+_MSLEVEL_KEYS = {"spectrum_type", "ms_level", "mslevel", "ms_type"}
 _NPEAKS_KEYS = {"num peaks", "num_peaks", "numpeaks"}
 
 # MoNA embeds key=value pairs inside a free-text Comments field.
@@ -39,6 +43,24 @@ _COMMENT_KV = re.compile(r'"?([A-Za-z_ ]+)=([^"]+)"?')
 def _clean(value: str) -> str | None:
     value = value.strip().strip('"')
     return None if value.upper() in _NULLS else value
+
+
+def _normalize_ion_mode(value: str | None) -> str | None:
+    """Normalize ion-mode spellings across producers.
+
+    MoNA writes single letters ('P' / 'N'); MassBank writes 'POSITIVE' /
+    'NEGATIVE'; GNPS writes 'Positive' and sometimes ' Negative' with a
+    leading space. Without normalization these produce four distinct
+    'modes' for two physical states.
+    """
+    if not value:
+        return None
+    v = value.strip().lower()
+    if v in {"p", "+", "pos", "positive"}:
+        return "positive"
+    if v in {"n", "-", "neg", "negative"}:
+        return "negative"
+    return v or None
 
 
 def parse_msp(handle: TextIO, source: str = "MoNA") -> Iterator[SpectralEntry]:
@@ -124,6 +146,7 @@ def _build(fields, synonyms, n_peaks, source) -> SpectralEntry:
         smiles=_pick(fields, _SMILES_KEYS),
         inchi=_pick(fields, _INCHI_KEYS),
         names=names,
-        ion_mode=(lambda m: m.lower() if m else None)(_pick(fields, _IONMODE_KEYS)),
+        ion_mode=_normalize_ion_mode(_pick(fields, _IONMODE_KEYS)),
+        ms_level=_pick(fields, _MSLEVEL_KEYS),
         n_peaks=declared_peaks if declared_peaks is not None else n_peaks,
     )

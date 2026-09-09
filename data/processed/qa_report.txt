@@ -1,46 +1,57 @@
 SPECGAP QA report
 ============================================================
 
-PROVENANCE: bundled real-FORMAT fixtures from GNPS/MassBank/COCONUT documentation; NOT the real corpus
+PROVENANCE: COCONUT 09-2026 x (MassBank 2026.03 + MoNA experimental MS2), 2026-09-07
 
 SPECTRAL INDEX
 ------------------------------------------------------------
-  spectra loaded:      9
-  joinable (InChIKey): 5
-  unique InChIKeys:    4
-  unique skeletons:    4
-    GNPS: 2 spectra, 2 unjoinable (100.0%)
-    MassBank: 3 spectra, 1 unjoinable (33.33%)
-    MoNA: 4 spectra, 1 unjoinable (25.0%)
+  spectra loaded:      1788666
+  joinable (InChIKey): 1765081
+  unique InChIKeys:    249218
+  unique skeletons:    242695
+    MassBank: 117211 spectra, 1053 unjoinable (0.9%)
+    MoNA: 1671455 spectra, 22532 unjoinable (1.35%)
 
 STRUCTURAL COVERAGE
 ------------------------------------------------------------
-  structures loaded:   4
-  joinable:            3
-  unjoinable:          1
-  exact-InChIKey:      3 (100.0% of joinable)
-  skeleton-level:      3 (100.0% of joinable)
+  structures loaded:   738823
+  joinable:            738823
+  unjoinable:          0
+  exact-InChIKey:      15338 (2.08% of joinable)
+  skeleton-level:      58225 (7.88% of joinable)
   NOTE: coverage percentages use JOINABLE structures as the denominator; structures without a well-formed InChIKey are excluded, not counted as uncovered
 
 NAME-RECOVERABILITY
 ------------------------------------------------------------
-  spectra:             9
-  assessable:          3
-  recovered:           3 (100.0% of assessable)
+  spectra:             1788666
+  assessable:          245992
+  recovered:           204543 (83.15% of assessable)
   NOTE: recoverability uses ASSESSABLE spectra as the denominator: those with an InChIKey, a declared name, and a structure present in the reference set. All other outcomes are reported in status_counts
 
   outcome breakdown:
-    recoverable: 3
-    structure_not_in_reference_set: 1
-    unjoinable_no_inchikey: 4
-    unjoinable_no_name: 1
+    recoverable: 204543
+    structure_not_in_reference_set: 1518798
+    unjoinable_no_inchikey: 23585
+    unjoinable_no_name: 291
+    unrecoverable: 41449
 
 SPOT CHECKS (verify these by hand against the source)
 ------------------------------------------------------------
-  [covered_exact] CNP0138595.0 (COCONUT) key=NETSQGRTUNRXEO-UHFFFAOYSA-N sources=MassBank;MoNA
-  [covered_exact] CNP0606256.0 (COCONUT) key=HZGJWEZZXLGUAU-UHFFFAOYSA-N sources=MoNA
-  [covered_exact] CNP0149754.0 (COCONUT) key=UNQQFDCVEMVQHM-UHFFFAOYSA-N sources=MoNA
-  [unjoinable] CNP0215845.0 (COCONUT) key=None sources=-
+  [covered_exact] CNP0431313.1 (COCONUT) key=LXNZOJGPYBTQHD-BTEYVOOESA-N sources=MoNA
+  [covered_exact] CNP0589945.3 (COCONUT) key=SLYDIPAXCVVRNY-UOWMTANKSA-N sources=MoNA
+  [covered_exact] CNP0526167.1 (COCONUT) key=UVHKHTJWCYXSLC-PPZIYWBKSA-N sources=MoNA
+  [covered_exact] CNP0151584.1 (COCONUT) key=PXUALOWHEHOKSO-SOXOQJGTSA-N sources=MoNA
+  [covered_exact] CNP0309742.1 (COCONUT) key=MRTUFVRJHFZVOT-FJOYPXEJSA-N sources=MoNA
+  [covered_skeleton_only] CNP0176967.3 (COCONUT) key=MHOOPNKRBMHHEC-YEMZYZDBSA-N sources=-
+  [covered_skeleton_only] CNP0238574.4 (COCONUT) key=DTOUWTJYUCZJQD-DUIVZQEBSA-N sources=-
+  [covered_skeleton_only] CNP0181244.4 (COCONUT) key=CSMYCLLHRFFFLG-DVEGRTGGSA-N sources=-
+  [covered_skeleton_only] CNP0170319.8 (COCONUT) key=AXNVHPCVMSNXNP-JKUMHRBWSA-N sources=-
+  [covered_skeleton_only] CNP0241029.5 (COCONUT) key=SMBCGBWABYMHIN-GORYWLCDSA-N sources=-
+  [uncovered] CNP0366806.5 (COCONUT) key=MZKGKUVVRZXESK-XIEYBQDHSA-N sources=-
+  [uncovered] CNP0075195.1 (COCONUT) key=VIJJWHNVAFSCLB-VPTCZNJJSA-N sources=-
+  [uncovered] CNP0277601.1 (COCONUT) key=DWGGPSSNTWYJPF-PHRVMANWSA-N sources=-
+  [uncovered] CNP0210157.1 (COCONUT) key=WZOMXUQYZDCACH-DITFMVQISA-N sources=-
+  [uncovered] CNP0016509.1 (COCONUT) key=ISAZHTWGNSGJLD-VWNXMTODSA-N sources=-
 
 SANITY CHECKS
 ------------------------------------------------------------
