@@ -109,29 +109,61 @@ def record_to_entry(record: dict) -> SpectralEntry:
     )
 
 
-def parse_gnps_json(handle: TextIO) -> Iterator[SpectralEntry]:
-    """Stream entries from a GNPS JSON export (array or newline-delimited)."""
-    first = handle.read(1)
-    while first and first.isspace():
-        first = handle.read(1)
-    if not first:
-        return
-    handle.seek(0)
+def _iter_json_objects(handle: TextIO, chunk_size: int = 1 << 20):
+    """Yield top-level JSON objects from an array, without loading the file.
 
-    if first == "[":
-        # Whole-array form. This does load the file into memory; for the full
-        # 2.9M-spectrum export prefer the newline-delimited or MSP form.
-        for record in json.load(handle):
-            if isinstance(record, dict):
-                yield record_to_entry(record)
-    else:
-        for line in handle:
-            line = line.strip().rstrip(",")
-            if not line or line in "[]":
+    ALL_GNPS_NO_PROPOGATED.json is a *pretty-printed* array of ~4.7 GB: each
+    record spans many lines, so neither json.load() (which would need tens of
+    GB of memory) nor a line-by-line reader (each line is a fragment) works.
+
+    This scans for balanced braces at depth 1, tracking string literals and
+    backslash escapes so that braces inside values -- SMILES, InChI strings,
+    free-text names -- do not corrupt the depth count.
+    """
+    depth = 0
+    in_string = False
+    escaped = False
+    buf = []
+    while True:
+        chunk = handle.read(chunk_size)
+        if not chunk:
+            break
+        for ch in chunk:
+            if depth > 0:
+                buf.append(ch)
+            if escaped:
+                escaped = False
                 continue
-            try:
-                record = json.loads(line)
-            except ValueError:
+            if ch == "\\" and in_string:
+                escaped = True
                 continue
-            if isinstance(record, dict):
-                yield record_to_entry(record)
+            if ch == '"':
+                in_string = not in_string
+                continue
+            if in_string:
+                continue
+            if ch == "{":
+                if depth == 0:
+                    buf = ["{"]
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+                if depth == 0:
+                    text = "".join(buf)
+                    buf = []
+                    try:
+                        obj = json.loads(text)
+                    except ValueError:
+                        continue
+                    if isinstance(obj, dict):
+                        yield obj
+
+
+def parse_gnps_json(handle: TextIO) -> Iterator[SpectralEntry]:
+    """Stream entries from a GNPS JSON export.
+
+    Handles the pretty-printed array form (the shape GNPS actually ships) and
+    newline-delimited JSON, without ever holding the whole file in memory.
+    """
+    for record in _iter_json_objects(handle):
+        yield record_to_entry(record)

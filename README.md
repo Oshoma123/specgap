@@ -2,7 +2,7 @@
 
 **An open engine for assessing the coverage of public mass spectral libraries.**
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22653062.svg)](https://doi.org/10.5281/zenodo.22653062)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22653061.svg)](https://doi.org/10.5281/zenodo.22653061)
 
 SPECGAP cross-matches natural-product structure sets (**LOTUS**, **COCONUT**)
 against the open spectral-library layer (**GNPS**, **MassBank**, **MoNA**) and
@@ -18,69 +18,63 @@ Founded September 2026.
 Maintainer: Oshoma Erumiseli ([ORCID 0009-0004-3813-4650](https://orcid.org/0009-0004-3813-4650)).
 Code: [MIT](LICENSE) · Audit outputs: [CC BY 4.0](LICENSE-DATA).
 
-## Status: two-sided coverage audit complete
+## Status: complete
 
-Engine finished and tested (69 tests), parsing the sources' **native formats**
-— GNPS MGF, GNPS JSON, MoNA/GNPS MSP, MassBank records, COCONUT and LOTUS SDF.
+Engine finished and tested (80 tests, CI on Python 3.9 and 3.12). **Both
+structure databases and all three spectral libraries have been audited at
+full scale** — 2,745,226 MS2 spectra against 738,823 COCONUT and 227,298
+LOTUS structures.
 
-**Full real runs completed:**
-- MassBank 2026.03 inventory — 139,240 records ([`docs/MASSBANK_INVENTORY.md`](docs/MASSBANK_INVENTORY.md))
-- COCONUT × MassBank — 738,823 structures ([`docs/COVERAGE_AUDIT.md`](docs/COVERAGE_AUDIT.md))
-- COCONUT × (MassBank + MoNA), MS2 only — 1.79M spectra ([`docs/COVERAGE_AUDIT_2LIB.md`](docs/COVERAGE_AUDIT_2LIB.md))
-- LOTUS × (MassBank + MoNA), identical spectra — ([`docs/LOTUS_AUDIT.md`](docs/LOTUS_AUDIT.md))
+**Headline result: [`docs/FULL_AUDIT.md`](docs/FULL_AUDIT.md)**
 
-Both structure databases done. Two of three spectral libraries. **GNPS
-remains outstanding** — use its `ALL_GNPS_NO_PROPAGATED` JSON export, which
-does carry InChIKeys (the MGF export does not).
+| Reference database | Structures | Exact | Skeleton | Name-recoverability |
+|---|---|---|---|---|
+| COCONUT | 738,823 | 2.86% | 9.66% | 69.54% |
+| LOTUS | 227,298 | 5.08% | 11.84% | 36.17% |
 
-## Selected findings
+Earlier stages, kept for the trend they show: [MassBank inventory](docs/MASSBANK_INVENTORY.md)
+· [COCONUT × MassBank](docs/COVERAGE_AUDIT.md) · [+ MoNA](docs/COVERAGE_AUDIT_2LIB.md)
+· [LOTUS](docs/LOTUS_AUDIT.md)
 
-**92% of natural-product structure space has no MS2 spectrum** in either
-MassBank or MoNA. Of 738,823 COCONUT structures, 15,338 (2.08%) match by
-exact InChIKey and 58,225 (7.88%) at skeleton level, against 1.79M spectra.
+## Findings
 
-**The spectral layer is not scaling toward natural products.** Adding MoNA
-brought 12.3× more distinct compounds but only 1.9× the coverage. 39.5% of
-MassBank's compounds are COCONUT natural products; across the combined
-249,218 compounds, just 6.2% are. MoNA's 228,883 additional compounds
-yielded 7,313 newly covered structures — a 3.2% hit rate.
+**~90% of documented natural-product space has no reference spectrum.**
+90.34% of COCONUT and 88.16% of LOTUS have no MS2 spectrum anywhere in the
+open spectral layer, even at skeleton level.
+
+**Coverage saturates.** A 19.7× increase in spectra (139,240 → 2,745,226)
+produced a 2.6× increase in coverage. Of 280,024 distinct compounds across
+the whole layer, 7.5% are COCONUT natural products. Extrapolating gap closure
+from library growth is wrong by roughly an order of magnitude.
+
+**Composition beats size.** GNPS contributed 7.4× fewer new compounds than
+MoNA but nearly as many newly covered structures — an 18.8% hit rate against
+natural-product space versus MoNA's 3.2%.
 
 **Name-recoverability is a property of the pair, not the library.** The same
-1.79M spectra recover 83.15% of their names against COCONUT and 43.12%
-against LOTUS — a 40-point swing with the spectral side held identical. Any
-figure of the form "library X has N% name-recoverability" is meaningless
-without naming the reference database.
+2,745,226 spectra recover 69.54% of their names against COCONUT and 36.17%
+against LOTUS. Any figure of the form "library X has N% name-recoverability"
+is under-specified without naming the reference database.
 
-**The gap is not uniform across natural-product space.** LOTUS is 3.3×
-smaller than COCONUT but twice as well covered (4.07% vs 2.08% exact). The
-better-referenced, more tightly curated database is the better-measured one;
-coverage over the long tail is worse than a single headline figure suggests.
+**Curation beats size on the structure side too.** LOTUS is 3.3× smaller than
+COCONUT but 1.78× better covered. The gap is narrower over well-referenced
+compounds and wider over the long tail.
 
-**Skeleton matching quadruples coverage (3.80×).** Relaxing exact InChIKey
-to molecular skeleton adds 42,887 structures. The multiplier *rose* when a
-second independently-curated library was added, arguing the
-stereochemistry mismatch between spectral libraries and structure databases
-is systemic rather than one library's quirk.
+**Joinability varies 6.5-fold.** MassBank 0.90%, MoNA 1.35%, GNPS JSON 5.88%
+unjoinable — and the GNPS MGF export is wholly unjoinable, defining no
+InChIKey field at all.
 
-**Naming is not the bottleneck; acquisition is.** 83.15% of assessable
-spectra recover their compound name, against ~8% structural coverage. MoNA's
-naming is measurably worse than MassBank's (which alone scored 89.87%), but
-both remain an order of magnitude above coverage.
+**Skeleton matching multiplies coverage 3.4×**, stably across one, two and
+three libraries — so structure databases and spectral libraries disagree
+about stereochemical assignment systemically.
 
-**MassBank's natural-product content is ~4× what its own field reports.**
-39.5% of its distinct compounds appear in COCONUT, versus the 9.45% its
-`CH$COMPOUND_CLASS` field claims — that field is unpopulated for 53.4% of
-records. Do not filter MassBank for natural products with it.
+## Scope decisions
 
-**Joinability spans the full range.** COCONUT 100%, MassBank 98.58%, GNPS
-`.mgf` 0% — the MGF format defines no InChIKey field, so no coverage number
-computed over it is meaningful.
-
-**Record counts overstate chemical coverage ~7×.** MassBank's 139,240
-spectra represent 20,335 distinct compounds.
-
-**MassBank is not uniformly CC BY.** 30.2% of records carry a non-commercial
-restriction; 149 are no-derivatives.
+Three filters, each stated because each *reduces* the reported layer:
+in-silico spectra excluded (MoNA ships 3.19M predicted vs 1.75M
+experimental); computationally propagated spectra excluded (GNPS
+`ALL_GNPS_NO_PROPOGATED`); MS1 and MS3+ excluded, since MS1 records a mass
+rather than a fragmentation fingerprint.
 
 ## Install and run
 
@@ -141,7 +135,7 @@ per-record licensing.
 ## Citation
 
 Erumiseli, O. (2026). *SPECGAP: an open engine for assessing the coverage of
-public mass spectral libraries*. Zenodo. <https://doi.org/10.5281/zenodo.22653062>
+public mass spectral libraries*. Zenodo. <https://doi.org/10.5281/zenodo.22653061>
 
 Machine-readable metadata in [`CITATION.cff`](CITATION.cff). The DOI above is
 the concept DOI and always resolves to the latest version; each release also

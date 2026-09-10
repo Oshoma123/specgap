@@ -1,46 +1,58 @@
 SPECGAP QA report
 ============================================================
 
-PROVENANCE: bundled real-FORMAT fixtures from GNPS/MassBank/COCONUT documentation; NOT the real corpus
+PROVENANCE: LOTUS 260413 frozen x (MassBank 2026.03 + MoNA experimental + GNPS no-propagated), MS2 only, 2026-09-09
 
 SPECTRAL INDEX
 ------------------------------------------------------------
-  spectra loaded:      9
-  joinable (InChIKey): 5
-  unique InChIKeys:    4
-  unique skeletons:    4
-    GNPS: 2 spectra, 2 unjoinable (100.0%)
-    MassBank: 3 spectra, 1 unjoinable (33.33%)
-    MoNA: 4 spectra, 1 unjoinable (25.0%)
+  spectra loaded:      2745226
+  joinable (InChIKey): 2665365
+  unique InChIKeys:    280024
+  unique skeletons:    269347
+    GNPS: 956412 spectra, 56276 unjoinable (5.88%)
+    MassBank: 117211 spectra, 1053 unjoinable (0.9%)
+    MoNA: 1671603 spectra, 22532 unjoinable (1.35%)
 
 STRUCTURAL COVERAGE
 ------------------------------------------------------------
-  structures loaded:   4
-  joinable:            3
-  unjoinable:          1
-  exact-InChIKey:      3 (100.0% of joinable)
-  skeleton-level:      3 (100.0% of joinable)
+  structures loaded:   227298
+  joinable:            227298
+  unjoinable:          0
+  exact-InChIKey:      11554 (5.08% of joinable)
+  skeleton-level:      26910 (11.84% of joinable)
   NOTE: coverage percentages use JOINABLE structures as the denominator; structures without a well-formed InChIKey are excluded, not counted as uncovered
 
 NAME-RECOVERABILITY
 ------------------------------------------------------------
-  spectra:             9
-  assessable:          3
-  recovered:           3 (100.0% of assessable)
+  spectra:             2745226
+  assessable:          574021
+  recovered:           207651 (36.17% of assessable)
   NOTE: recoverability uses ASSESSABLE spectra as the denominator: those with an InChIKey, a declared name, and a structure present in the reference set. All other outcomes are reported in status_counts
 
   outcome breakdown:
-    recoverable: 3
-    structure_not_in_reference_set: 1
-    unjoinable_no_inchikey: 4
-    unjoinable_no_name: 1
+    recoverable: 207651
+    structure_not_in_reference_set: 2091047
+    unjoinable_no_inchikey: 79861
+    unjoinable_no_name: 297
+    unrecoverable: 366370
 
 SPOT CHECKS (verify these by hand against the source)
 ------------------------------------------------------------
-  [covered_exact] CNP0138595.0 (COCONUT) key=NETSQGRTUNRXEO-UHFFFAOYSA-N sources=MassBank;MoNA
-  [covered_exact] CNP0606256.0 (COCONUT) key=HZGJWEZZXLGUAU-UHFFFAOYSA-N sources=MoNA
-  [covered_exact] CNP0149754.0 (COCONUT) key=UNQQFDCVEMVQHM-UHFFFAOYSA-N sources=MoNA
-  [unjoinable] CNP0215845.0 (COCONUT) key=None sources=-
+  [covered_exact] http://www.wikidata.org/entity/Q100146245 (LOTUS) key=XNSXDDHLEKKURV-PJYKFWTKSA-N sources=GNPS
+  [covered_exact] http://www.wikidata.org/entity/Q100154139 (LOTUS) key=IFKUPHYTIDOPIM-UHFFFAOYSA-N sources=MassBank
+  [covered_exact] http://www.wikidata.org/entity/Q100324205 (LOTUS) key=DLRVVLDZNNYCBX-CQUJWQHSSA-N sources=GNPS;MoNA
+  [covered_exact] http://www.wikidata.org/entity/Q100606475 (LOTUS) key=VPVOXUSPXFPWBN-VKHMYHEASA-N sources=GNPS;MoNA
+  [covered_exact] http://www.wikidata.org/entity/Q102015395 (LOTUS) key=PEYUIKBAABKQKQ-UHFFFAOYSA-N sources=GNPS;MassBank;MoNA
+  [covered_skeleton_only] http://www.wikidata.org/entity/Q100145876 (LOTUS) key=BIPAHAFBQLWRMC-DBODQZQTSA-N sources=-
+  [covered_skeleton_only] http://www.wikidata.org/entity/Q100145877 (LOTUS) key=JYIJIIVLEOETIQ-XJFOESAGSA-N sources=-
+  [covered_skeleton_only] http://www.wikidata.org/entity/Q100145891 (LOTUS) key=FBSKJMQYURKNSU-FNZCHUJFSA-N sources=-
+  [covered_skeleton_only] http://www.wikidata.org/entity/Q100145894 (LOTUS) key=VJQAFLAZRVKAKM-GJQVQUKXSA-N sources=-
+  [covered_skeleton_only] http://www.wikidata.org/entity/Q100145898 (LOTUS) key=SGNBVLSWZMBQTH-SSKRYHHQSA-N sources=-
+  [uncovered] http://www.wikidata.org/entity/Q100138042 (LOTUS) key=MBABCNBNDNGODA-WGCJABNLSA-N sources=-
+  [uncovered] http://www.wikidata.org/entity/Q100145478 (LOTUS) key=NQBSPMKAIGEJBH-UHFFFAOYSA-N sources=-
+  [uncovered] http://www.wikidata.org/entity/Q100145859 (LOTUS) key=MZPNVEOVZSHYMZ-AWQFTUOYSA-N sources=-
+  [uncovered] http://www.wikidata.org/entity/Q100145862 (LOTUS) key=RTBLDXVIGWSICW-JMSVASOKSA-N sources=-
+  [uncovered] http://www.wikidata.org/entity/Q100145863 (LOTUS) key=GNFZXVRWYHFYNY-UHFFFAOYSA-N sources=-
 
 SANITY CHECKS
 ------------------------------------------------------------

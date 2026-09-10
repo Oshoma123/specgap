@@ -27,6 +27,7 @@ from dataclasses import asdict
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
+from specgap.identity import normalize_ms_level  # noqa: E402
 from specgap.coverage import (  # noqa: E402
     SpectralIndex, build_name_lookup, name_recoverability, structural_coverage,
 )
@@ -146,10 +147,11 @@ def main():
                          "propagated from reference spectra, not measured, "
                          "and not valid evidence of coverage")
     ap.add_argument("--ms-level", default=None,
-                    help="keep only spectra whose recorded level matches this "
-                         "(e.g. MS2). MS1 spectra give a mass, not a "
-                         "fragmentation fingerprint, and are not usable as "
-                         "identification references")
+                    help="keep only spectra at this MS level (e.g. MS2). "
+                         "Spellings are normalized across sources: MassBank "
+                         "and MoNA write 'MS2', GNPS JSON writes '2'. MS1 "
+                         "spectra give a mass, not a fragmentation "
+                         "fingerprint, and are not identification references")
     ap.add_argument("--provenance", required=True,
                     help="one line describing exactly what data this run used")
     args = ap.parse_args()
@@ -165,7 +167,7 @@ def main():
     # memory for no benefit. Re-reading from disk is cheaper than paging.
     def spectra_stream():
         for entry in load_spectra(args):
-            if args.ms_level and (entry.ms_level or "").upper() != args.ms_level.upper():
+            if args.ms_level and normalize_ms_level(entry.ms_level) != normalize_ms_level(args.ms_level):
                 continue
             if args.exclude_propagated and "PROPOGATED" in (entry.compound_class or "").upper():
                 continue

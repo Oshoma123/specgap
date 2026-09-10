@@ -1,85 +1,164 @@
 {
-  "provenance": "bundled real-FORMAT fixtures from GNPS/MassBank/COCONUT documentation; NOT the real corpus",
+  "provenance": "LOTUS 260413 frozen x (MassBank 2026.03 + MoNA experimental + GNPS no-propagated), MS2 only, 2026-09-09",
+  "ms_level_filter": "MS2",
+  "propagated_excluded": false,
   "fuzzy_threshold": 0.92,
   "spectral_index": {
-    "n_spectra_total": 9,
-    "n_spectra_joinable": 5,
-    "n_unique_inchikeys": 4,
-    "n_unique_skeletons": 4,
+    "n_spectra_total": 2745226,
+    "n_spectra_joinable": 2665365,
+    "n_unique_inchikeys": 280024,
+    "n_unique_skeletons": 269347,
     "by_source": {
       "GNPS": {
-        "n_total": 2,
-        "n_unjoinable": 2,
-        "pct_unjoinable": 100.0
+        "n_total": 956412,
+        "n_unjoinable": 56276,
+        "pct_unjoinable": 5.88
       },
       "MassBank": {
-        "n_total": 3,
-        "n_unjoinable": 1,
-        "pct_unjoinable": 33.33
+        "n_total": 117211,
+        "n_unjoinable": 1053,
+        "pct_unjoinable": 0.9
       },
       "MoNA": {
-        "n_total": 4,
-        "n_unjoinable": 1,
-        "pct_unjoinable": 25.0
+        "n_total": 1671603,
+        "n_unjoinable": 22532,
+        "pct_unjoinable": 1.35
       }
     }
   },
   "structural_coverage": {
-    "n_structures_total": 4,
-    "n_structures_joinable": 3,
-    "n_structures_unjoinable": 1,
+    "n_structures_total": 227298,
+    "n_structures_joinable": 227298,
+    "n_structures_unjoinable": 0,
     "denominator_note": "coverage percentages use JOINABLE structures as the denominator; structures without a well-formed InChIKey are excluded, not counted as uncovered",
     "exact_inchikey": {
-      "n_covered": 3,
-      "pct_of_joinable": 100.0
+      "n_covered": 11554,
+      "pct_of_joinable": 5.08
     },
     "skeleton": {
-      "n_covered": 3,
-      "pct_of_joinable": 100.0
+      "n_covered": 26910,
+      "pct_of_joinable": 11.84
     },
     "status_counts": {
-      "covered_exact": 3,
-      "unjoinable": 1
+      "uncovered": 200388,
+      "covered_skeleton_only": 15356,
+      "covered_exact": 11554
     },
     "by_structure_db": {
-      "COCONUT": {
-        "n": 4,
-        "n_joinable": 3,
-        "exact_pct_of_joinable": 100.0,
-        "skeleton_pct_of_joinable": 100.0
+      "LOTUS": {
+        "n": 227298,
+        "n_joinable": 227298,
+        "exact_pct_of_joinable": 5.08,
+        "skeleton_pct_of_joinable": 11.84
       }
     }
   },
   "name_recoverability": {
-    "n_spectra_total": 9,
-    "n_assessable": 3,
+    "n_spectra_total": 2745226,
+    "n_assessable": 574021,
     "denominator_note": "recoverability uses ASSESSABLE spectra as the denominator: those with an InChIKey, a declared name, and a structure present in the reference set. All other outcomes are reported in status_counts",
-    "n_recovered": 3,
-    "pct_of_assessable": 100.0,
+    "n_recovered": 207651,
+    "pct_of_assessable": 36.17,
     "status_counts": {
-      "unjoinable_no_inchikey": 4,
-      "recoverable": 3,
-      "unjoinable_no_name": 1,
-      "structure_not_in_reference_set": 1
+      "structure_not_in_reference_set": 2091047,
+      "recoverable": 207651,
+      "unrecoverable": 366370,
+      "unjoinable_no_inchikey": 79861,
+      "unjoinable_no_name": 297
     },
     "method_counts": {
-      "exact": 3
+      "exact": 182625,
+      "none": 366370,
+      "fuzzy:0.938": 661,
+      "fuzzy:0.947": 1102,
+      "fuzzy:0.972": 76,
+      "fuzzy:0.971": 1111,
+      "fuzzy:0.952": 1226,
+      "fuzzy:0.967": 79,
+      "fuzzy:0.960": 973,
+      "fuzzy:0.970": 215,
+      "fuzzy:0.933": 995,
+      "fuzzy:0.930": 449,
+      "fuzzy:0.953": 65,
+      "fuzzy:0.943": 65,
+      "fuzzy:0.923": 1956,
+      "fuzzy:0.980": 165,
+      "fuzzy:0.927": 358,
+      "fuzzy:0.965": 12,
+      "fuzzy:0.989": 19,
+      "fuzzy:0.929": 1548,
+      "fuzzy:0.925": 55,
+      "fuzzy:0.957": 1642,
+      "fuzzy:0.955": 361,
+      "fuzzy:0.941": 1017,
+      "fuzzy:0.937": 36,
+      "fuzzy:0.966": 1506,
+      "fuzzy:0.963": 1497,
+      "fuzzy:0.944": 742,
+      "fuzzy:0.935": 284,
+      "fuzzy:0.987": 41,
+      "fuzzy:0.928": 64,
+      "fuzzy:0.974": 150,
+      "fuzzy:0.973": 104,
+      "fuzzy:0.979": 353,
+      "fuzzy:0.950": 576,
+      "fuzzy:0.984": 242,
+      "fuzzy:0.968": 570,
+      "fuzzy:0.976": 399,
+      "fuzzy:0.981": 97,
+      "fuzzy:0.978": 93,
+      "fuzzy:0.977": 584,
+      "fuzzy:0.982": 386,
+      "fuzzy:0.986": 42,
+      "fuzzy:0.945": 176,
+      "fuzzy:0.958": 916,
+      "fuzzy:0.988": 7,
+      "fuzzy:0.926": 72,
+      "fuzzy:0.954": 61,
+      "fuzzy:0.939": 114,
+      "fuzzy:0.931": 135,
+      "fuzzy:0.936": 203,
+      "fuzzy:0.951": 25,
+      "fuzzy:0.949": 17,
+      "fuzzy:0.920": 31,
+      "fuzzy:0.946": 36,
+      "fuzzy:0.983": 11,
+      "fuzzy:0.921": 33,
+      "fuzzy:0.964": 78,
+      "fuzzy:0.962": 319,
+      "fuzzy:0.993": 8,
+      "fuzzy:0.997": 40,
+      "fuzzy:0.992": 100,
+      "fuzzy:0.959": 30,
+      "fuzzy:0.934": 35,
+      "fuzzy:0.956": 29,
+      "fuzzy:0.975": 14,
+      "fuzzy:0.969": 89,
+      "fuzzy:0.948": 9,
+      "fuzzy:0.985": 29,
+      "fuzzy:0.991": 167,
+      "fuzzy:0.990": 14,
+      "fuzzy:0.940": 122,
+      "fuzzy:0.922": 13,
+      "fuzzy:0.942": 18,
+      "fuzzy:0.961": 150,
+      "fuzzy:0.932": 9
     },
     "by_spectral_source": {
       "GNPS": {
-        "n": 2,
-        "n_assessable": 0,
-        "recovered_pct_of_assessable": null
+        "n": 956412,
+        "n_assessable": 291059,
+        "recovered_pct_of_assessable": 29.42
       },
       "MassBank": {
-        "n": 3,
-        "n_assessable": 1,
-        "recovered_pct_of_assessable": 100.0
+        "n": 117211,
+        "n_assessable": 47619,
+        "recovered_pct_of_assessable": 63.43
       },
       "MoNA": {
-        "n": 4,
-        "n_assessable": 2,
-        "recovered_pct_of_assessable": 100.0
+        "n": 1671603,
+        "n_assessable": 235343,
+        "recovered_pct_of_assessable": 39.01
       }
     }
   }

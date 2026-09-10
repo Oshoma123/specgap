@@ -122,3 +122,21 @@ def name_matches(
     if best_ratio >= fuzzy_threshold:
         return True, f"fuzzy:{best_ratio:.3f}"
     return False, "none"
+
+
+# MS level is spelled differently by every source: MassBank writes 'MS2' via
+# AC$MASS_SPECTROMETRY MS_TYPE, MoNA writes 'MS2' via Spectrum_type, and GNPS
+# JSON writes a bare '2' in ms_level. Filtering on the raw string would
+# silently discard an entire source -- GNPS in particular.
+def normalize_ms_level(value):
+    """Return a canonical MS level string ('MS1', 'MS2', ...) or None."""
+    if value is None:
+        return None
+    v = str(value).strip().upper().replace(" ", "")
+    if not v:
+        return None
+    if v.startswith("MS"):
+        return v
+    if v.isdigit():
+        return "MS" + v
+    return v

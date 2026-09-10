@@ -324,3 +324,36 @@ def test_gnps_json_captures_library_membership_for_propagated_filter():
              "library_membership": "GNPS_PROPOGATED", "peaks_json": "[]"}]
     e = next(parse_gnps_json(io.StringIO(json.dumps(recs))))
     assert "PROPOGATED" in (e.compound_class or "").upper()
+
+
+def test_gnps_json_streams_pretty_printed_array():
+    """ALL_GNPS_NO_PROPOGATED.json is a ~4.7 GB pretty-printed array: records
+    span many lines, so neither json.load() nor a line reader works. Braces
+    inside SMILES values and escaped quotes in names must not break the
+    brace-depth scan.
+    """
+    import io
+    from specgap.parsers import parse_gnps_json
+    doc = ('[\n    {\n        "spectrum_id": "A",\n'
+           '        "Smiles": "CC{1}CC(=O)N",\n'
+           '        "Compound_Name": "Quoted \\"inner\\" name",\n'
+           '        "InChIKey_smiles": "NETSQGRTUNRXEO-UHFFFAOYSA-N",\n'
+           '        "ms_level": "2"\n    },\n'
+           '    {\n        "spectrum_id": "B",\n'
+           '        "InChIKey_inchi": "HZGJWEZZXLGUAU-UHFFFAOYSA-N",\n'
+           '        "ms_level": "1"\n    }\n]\n')
+    entries = list(parse_gnps_json(io.StringIO(doc)))
+    assert len(entries) == 2
+    assert entries[0].primary_name == 'Quoted "inner" name'
+    assert entries[0].inchikey == "NETSQGRTUNRXEO-UHFFFAOYSA-N"
+
+
+def test_ms_level_normalizes_across_sources():
+    """GNPS writes '2'; MassBank and MoNA write 'MS2'. Filtering on the raw
+    string would silently discard every GNPS spectrum.
+    """
+    from specgap.identity import normalize_ms_level
+    assert normalize_ms_level("2") == normalize_ms_level("MS2") == "MS2"
+    assert normalize_ms_level("1") == normalize_ms_level("ms1") == "MS1"
+    assert normalize_ms_level(None) is None
+    assert normalize_ms_level("") is None
