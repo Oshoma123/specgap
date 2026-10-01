@@ -4,7 +4,7 @@ Cross-matches natural-product structure sets (LOTUS, COCONUT) against the
 open spectral-library layer (GNPS, MassBank, MoNA), reporting structural
 coverage and name-recoverability.
 """
-__version__ = "0.8.0"
+__version__ = "1.0.1"
 
 from .identity import (
     is_wellformed_inchikey,

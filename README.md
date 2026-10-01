@@ -134,7 +134,7 @@ per-record licensing.
 
 ## Citation
 
-Erumiseli, O. (2026). *SPECGAP: an open engine for assessing the coverage of
+Erumiseli, O., Ali, B. H., & Garba, D. (2026). *SPECGAP: an open engine for assessing the coverage of
 public mass spectral libraries*. Zenodo. <https://doi.org/10.5281/zenodo.22653061>
 
 Machine-readable metadata in [`CITATION.cff`](CITATION.cff). The DOI above is

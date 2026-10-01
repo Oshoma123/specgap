@@ -7,10 +7,20 @@ authors:
     orcid: "https://orcid.org/0009-0004-3813-4650"
     affiliation: "Independent Researcher, Corvallis, Oregon, USA"
     email: "Erumiseli.oshomag@gmail.com"
-version: "0.8.0"
-date-released: "2026-09-07"
+  - family-names: "Ali"
+    given-names: "Bila Hassan"
+    orcid: "https://orcid.org/0009-0002-9109-7778"
+    affiliation: "Department of Pharmaceutical and Medicinal Chemistry, Veritas University Abuja, Abuja, Nigeria"
+    email: "greatbila111@gmail.com"
+  - family-names: "Garba"
+    given-names: "Dauda"
+    orcid: "https://orcid.org/0000-0002-5833-5511"
+    affiliation: "Department of Pharmaceutical and Medicinal Chemistry, University of Abuja, Abuja, Nigeria"
+    email: "dauda.garba@ymail.com"
+version: "1.0.1"
+date-released: "2026-10-01"
 license: MIT
-doi: "10.5281/zenodo.22653062"
+doi: "10.5281/zenodo.22653061"
 repository-code: "https://github.com/Oshoma123/specgap"
 abstract: >
   SPECGAP cross-matches natural-product structure sets (LOTUS, COCONUT)

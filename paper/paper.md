@@ -11,9 +11,19 @@ authors:
   - name: Oshoma Erumiseli
     orcid: 0009-0004-3813-4650
     affiliation: 1
+  - name: Bila Hassan Ali
+    orcid: 0009-0002-9109-7778
+    affiliation: 2
+  - name: Dauda Garba
+    orcid: 0000-0002-5833-5511
+    affiliation: 3
 affiliations:
   - name: Independent Researcher, Corvallis, Oregon, USA
     index: 1
+  - name: Department of Pharmaceutical and Medicinal Chemistry, Veritas University Abuja, Abuja, Nigeria
+    index: 2
+  - name: Department of Pharmaceutical and Medicinal Chemistry, University of Abuja, Abuja, Nigeria
+    index: 3
 date: 9 September 2026
 bibliography: paper.bib
 ---

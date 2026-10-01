@@ -7,8 +7,38 @@
       "orcid": "0009-0004-3813-4650",
       "email": "Erumiseli.oshomag@gmail.com",
       "affiliation": "Independent Researcher, Corvallis, Oregon, USA",
-      "roles": ["Conceptualization", "Methodology", "Software", "Validation", "Writing - original draft"],
+      "roles": [
+        "Conceptualization",
+        "Methodology",
+        "Software",
+        "Validation",
+        "Writing - original draft"
+      ],
       "corresponding": true
+    },
+    {
+      "name": "Bila Hassan Ali",
+      "family": "Ali",
+      "given": "Bila Hassan",
+      "orcid": "0009-0002-9109-7778",
+      "email": "greatbila111@gmail.com",
+      "affiliation": "Department of Pharmaceutical and Medicinal Chemistry, Veritas University Abuja, Abuja, Nigeria",
+      "roles": [
+        "Validation"
+      ],
+      "corresponding": false
+    },
+    {
+      "name": "Dauda Garba",
+      "family": "Garba",
+      "given": "Dauda",
+      "orcid": "0000-0002-5833-5511",
+      "email": "dauda.garba@ymail.com",
+      "affiliation": "Department of Pharmaceutical and Medicinal Chemistry, University of Abuja, Abuja, Nigeria",
+      "roles": [
+        "Writing - review & editing"
+      ],
+      "corresponding": false
     }
   ],
   "collaborators": []

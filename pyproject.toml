@@ -4,12 +4,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "specgap"
-version = "0.8.0"
+version = "1.0.1"
 description = "Assessing the coverage of public mass spectral libraries against natural-product structure databases"
 readme = "README.md"
 requires-python = ">=3.9"
 license = {text = "MIT"}
-authors = [{name = "Oshoma Erumiseli", email = "Erumiseli.oshomag@gmail.com"}]
+authors = [
+  {name = "Oshoma Erumiseli", email = "Erumiseli.oshomag@gmail.com"},
+  {name = "Bila Hassan Ali", email = "greatbila111@gmail.com"},
+  {name = "Dauda Garba", email = "dauda.garba@ymail.com"},
+]
 keywords = ["metabolomics", "mass spectrometry", "natural products", "spectral libraries", "cheminformatics"]
 classifiers = [
   "Intended Audience :: Science/Research",
